@@ -1,0 +1,34 @@
+project_name: 'modeling-mrcnn'
+task: 'segment_project-mrcnn'
+num_classes: 2
+n_epochs: 100
+accelerator: 'gpu'
+devices: '9'
+monitor_metric: 'train_loss'
+box_detection_per_img: 539
+hidden_layer: 256
+mask_threshold: 0.5
+min_score: 0.1
+load_from_ckpt: 'lightning_logs/version_14/checkpoints/mrcnn-epoch=39-step=320-train_loss=0.8353.ckpt'
+optimizer: 'torch.optim.AdamW'
+optimizer_kwargs:
+  lr: 3e-4
+
+scheduler: 'torch.optim.lr_scheduler.CosineAnnealingLR'
+scheduler_kwargs:
+  T_max: 70
+  eta_min: 5e-5
+
+  
+mlflow_config:
+  run_name: 'mrcnn'
+  experiment_name: 'mrcnn'
+  tracking_uri: 'http://mlflow:5000'
+
+data_config:
+  data_path: '../../shared_data/SatelliteTo3D-Datasets/segment_project.v2i.coco-segmentation'
+  batch_size: 8
+  n_workers: 2
+  image_size: 512
+  processor_image_size: 640
+  dataset_name: 'bisd'
