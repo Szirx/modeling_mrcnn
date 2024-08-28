@@ -31,7 +31,7 @@ def train(config: Config, config_file):
         save_top_k=1,
         every_n_epochs=1,
         verbose=True,
-        mode='min',
+        mode='max',
         monitor=config.monitor_metric,
     )
 

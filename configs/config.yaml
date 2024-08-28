@@ -1,23 +1,29 @@
 project_name: 'modeling-mrcnn'
 task: 'segment_project-mrcnn'
 num_classes: 2
-n_epochs: 100
+n_epochs: 200
 accelerator: 'gpu'
 devices: '9'
-monitor_metric: 'train_loss'
+monitor_metric: 'val_mask_map_50'
 box_detection_per_img: 539
-hidden_layer: 256
-mask_threshold: 0.5
-min_score: 0.1
-load_from_ckpt: 'lightning_logs/version_14/checkpoints/mrcnn-epoch=39-step=320-train_loss=0.8353.ckpt'
+hidden_layer: 1024
+mask_threshold: 0.6
+min_score: 0.3
+load_from_ckpt: 'lightning_logs/version_34/checkpoints/mrcnn-epoch=38-step=312-train_loss=0.8582.ckpt'
 optimizer: 'torch.optim.AdamW'
 optimizer_kwargs:
   lr: 3e-4
 
-scheduler: 'torch.optim.lr_scheduler.CosineAnnealingLR'
+scheduler: 'cosine_annealing_warmup.CosineAnnealingWarmupRestarts'
 scheduler_kwargs:
-  T_max: 70
-  eta_min: 5e-5
+  first_cycle_steps: 50
+  cycle_mult: 1.0
+  max_lr: 3e-4
+  min_lr: 1e-5
+  warmup_steps: 1
+  gamma: 1.0
+  last_epoch: -1
+
 
   
 mlflow_config:

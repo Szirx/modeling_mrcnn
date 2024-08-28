@@ -24,7 +24,7 @@ def draw_random_masks(
     masked_image = image.copy()
     max_value = 255
 
-    if len(post_process_masks.shape) == 2:
+    if len(post_process_masks) == 2:
         post_process_masks = np.expand_dims(post_process_masks, axis=0)
     for mask in post_process_masks:
         masked_image = np.where(

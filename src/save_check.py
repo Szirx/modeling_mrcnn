@@ -10,4 +10,4 @@ if __name__ == '__main__':
     trained_model = MaskRCNNLightning.load_from_checkpoint(config.load_from_ckpt, config=config)
     model_weights = trained_model.model.state_dict()
 
-    torch.save(model_weights, "weights/mrcnn-weights.pt")
+    torch.save(model_weights, "weights/mrcnn-map-80.pt")
